@@ -1,0 +1,48 @@
+<snippet>
+	<content><![CDATA[
+int Power (int aA, int nN, int mM) {
+    int res = 1;
+    while(nN) {
+        if(nN & 1) res = (res * aA) % mM;
+        aA = (aA * aA) % mM; nN /= 2;
+    }
+    return res;
+}
+
+int modm(int zZ) {return ((zZ % mod)+mod) % mod;}
+int addm(int zZ, int Zz) {return (((zZ + Zz) % mod)+mod) % mod;}
+int subm(int zZ, int Zz) {return (((zZ - Zz) % mod)+mod) % mod;}
+int mulm(int zZ, int Zz) {return (modm(zZ) * modm(Zz)) % mod;}
+int divm(int zZ, int Zz) {return mulm(zZ, Power(Zz, mod-2, mod));}
+
+int modm2(int zZ) {return ((zZ % mod2)+mod2) % mod2;}
+int addm2(int zZ, int Zz) {return (((zZ + Zz) % mod2)+mod2) % mod2;}
+int subm2(int zZ, int Zz) {return (((zZ - Zz) % mod2)+mod2) % mod2;}
+int mulm2(int zZ, int Zz) {return (modm2(zZ) * modm2(Zz)) % mod2;}
+int divm2(int zZ, int Zz) {return mulm2(zZ, Power(Zz, mod2-2, mod2));}
+
+int Hash[2][n+2]; Hash[0][0] = Hash[1][0] = 0;
+
+void generate_hash(string s) {
+	int p31 = 31, p29 = 29, hash1 = 0, hash2 = 0;
+	for(int i = 1; i <= n; i++){
+		//here subtract '0' in case of binary string
+        hash1 = (hash1 + (s[i-1]-'a'+1) * p31) % mod;
+        hash2 = (hash2 + (s[i-1]-'a'+1) * p29) % mod2;
+        Hash[0][i] = hash1; Hash[1][i] = hash2;
+        p31 = (p31 * 31) % mod; p29 = (p29 * 29) % mod2;
+    }
+}
+
+void get_hash(int l, int r, int row, int p, int mM) {
+	int div = Power(p, l-1, mM);
+	int segment = (Hash[row][r] - Hash[row][l-1] + mM) % mM;
+	segment = (Power(div, mM-2, mM) * segment) % mM;
+	return segment;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gStringHash</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

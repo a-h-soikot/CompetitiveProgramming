@@ -1,0 +1,16 @@
+<snippet>
+	<content><![CDATA[
+int Power (int aA, int nN, int mM) {
+    int res = 1;
+    while(nN) {
+        if(nN & 1) res = (res * aA) % mM;
+        aA = (aA * aA) % mM; nN /= 2;
+    }
+    return res;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gbigpower</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

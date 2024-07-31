@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+class segment_tree {
+    vector<int> sgtree; int n;
+public:
+
+    void build(int l, int r, int node, vector<int> &a) {
+        if(l == r) {
+            sgtree[node] = a[l]; return void();
+        }
+
+        int mid = (l + r) / 2;
+        build(l, mid, 2 * node + 1, a);
+        build(mid+1, r, 2 * node + 2, a);
+        // You may need to modify here
+    }
+
+    int query(int i, int j, int l, int r, int node) {
+        if(r < i or l > j) return 0;
+        if(i >= l and j <= r) return sgtree[node];
+
+        int mid = (i + j) / 2;
+        int a = query(i, mid, l, r, 2 * node + 1);
+        int b = query(mid+1, j, l, r, 2 * node + 2);
+        // You may need to modify here
+        return sgtree[node] + a + b;
+    }
+
+    void update(int i, int j, int l, int r, int node, int val) {
+        if(j < l or i > r) return void();
+        if(i >= l and j <= r) {
+            sgtree[node] += val; return void();
+        }
+        int mid = (i + j) / 2;
+        update(i, mid, l, r, node * 2 + 1, val);
+        update(mid+1, j, l, r, node * 2 + 2, val);
+        // You may need to modify here
+    }
+
+    void build (vector<int> &a) {
+        this->n = (int)(a.size());
+        sgtree.resize(4*n);
+        build(0, n-1, 0, a);
+    }
+
+    void update (int l, int r, int val) {
+        update(0, n-1, l, r, 0, val);
+    }
+
+    int query (int l, int r) {
+        return query(0, n-1, l, r, 0);
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gSegmentTree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

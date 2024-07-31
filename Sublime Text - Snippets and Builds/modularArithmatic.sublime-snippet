@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+int modm(int zZ) {return ((zZ % mod)+mod) % mod;}
+int addm(int zZ, int Zz) {return (((zZ + Zz) % mod)+mod) % mod;}
+int subm(int zZ, int Zz) {return (((zZ - Zz) % mod)+mod) % mod;}
+int mulm(int zZ, int Zz) {return (modm(zZ) * modm(Zz)) % mod;}
+int divm(int zZ, int Zz) {return mulm(zZ, Power(Zz, mod-2, mod));}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gModularArithmatic</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

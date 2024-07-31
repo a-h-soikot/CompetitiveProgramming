@@ -1,0 +1,66 @@
+<snippet>
+	<content><![CDATA[
+class MatrixExponentiation {
+    vector<vector<int>> T, mat, res;
+
+public:
+
+    ~MatrixExponentiation() {
+        mat.clear(); T.clear(); res.clear();
+    }
+
+    void multiply (vector<vector<int>> &aA, vector<vector<int>> &bB) {
+        int R1 = (int)(aA.size()), R2 = (int)(bB.size());
+        int C1 = (int)(aA[0].size()), C2 = (int)(bB[0].size());
+        if(C1 != R2) {
+            cout << "Error multiplying matrix" << endl; exit(0);
+        }
+
+        vector<vector<int>> _MAT(R1, vector<int> (C2, 0));
+
+        for(int r = 0; r < R1; r++) {
+            for(int c = 0; c < C2; c++) {
+                int _sum = 0;
+                for(int k = 0; k < R2; k++) {
+                    _sum += aA[r][k] * bB[k][c];
+                    _sum %= mod;
+                }
+                _MAT[r][c] = _sum;
+            }
+        }
+
+        aA = _MAT; // Assigning result to the first Argument.
+    }
+
+    void _Power(int nN) {
+        res.clear();
+        res = vector<vector<int>> ((int)(T.size()), vector<int> ((int)(T[0].size()), 0));
+        for(int i = 0; i < (int)(res.size()); i++) res[i][i] = 1;
+
+        while(nN) {
+            if(nN & 1) multiply(res, T); // works as res = res * T
+            multiply(T, T); nN /= 2;
+        }
+    }
+
+    void Generate (int nN) {  // Change statements if needed.
+        mat.clear(); T.clear(); 
+        T = {{0, 1}, {1, 1}}; // Generally a square matrix
+        mat = {{0}, {1}};
+        if(nN <= 0) return void();
+
+        _Power(nN); // Generating T^nN
+    }
+
+    int getTerm (int NN) { // Change statements if needed.
+        Generate(NN-2); 
+        if(NN < 3) return mat[NN-1][0];
+        return res[1][1];
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gMatrixExponentiation</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

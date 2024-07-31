@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+const int32_t N = 2e5 + 1;
+int fact[N+2], rfact[N+2];
+
+int Power (int aA, int nN, int mM) {
+    int res = 1;
+    while(nN) {
+        if(nN & 1) res = (res * aA) % mM;
+        aA = (aA * aA) % mM; nN /= 2;
+    }
+    return res;
+}
+
+int modm(int zZ) {return ((zZ % mod)+mod) % mod;}
+int addm(int zZ, int Zz) {return (((zZ + Zz) % mod)+mod) % mod;}
+int subm(int zZ, int Zz) {return (((zZ - Zz) % mod)+mod) % mod;}
+int mulm(int zZ, int Zz) {return (modm(zZ) * modm(Zz)) % mod;}
+int divm(int zZ, int Zz) {return mulm(zZ, Power(Zz, mod-2, mod));}
+
+void generate_factorials () {
+    fact[0] = fact[1] = 1;
+    for(int i = 2; i <= N; i++) fact[i] = mulm(fact[i-1], i);
+    rfact[N] = divm(1, fact[N]);
+    for(int i = N-1; i >= 0; i--) rfact[i] = mulm(rfact[i+1], i+1);
+}
+
+int ncr(int n, int r) {
+    if(n < r) return 0;
+    return mulm(fact[n], mulm(rfact[r], rfact[n-r]));
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gCombinatorics</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

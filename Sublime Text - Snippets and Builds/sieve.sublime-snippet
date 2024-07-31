@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+const int32_t sz = 1e6 + 2;
+vector<bool> prime(sz+1, true);
+
+void sieve(){
+    for(int i = 4; i < sz; i+=2) prime[i] = false;
+    for(int i = 3; i*i <= sz; i+=2){
+        if(prime[i]){
+            for(int j = i*i; j <= sz; j+=2*i)
+                prime[j] = false;
+        }
+    } prime[0] = prime[1] = false;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gSieve</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

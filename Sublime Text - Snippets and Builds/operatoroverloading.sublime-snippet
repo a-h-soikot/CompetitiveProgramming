@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+class Key {
+public:
+  int a, b;
+  Key(int x, int y) : a(x), b(y) {}
+
+  bool operator<(const Key& other) const {
+    if(a == other.a) return b > other.b;
+    else return a > other.a;  
+  }
+
+};
+// map<Key, string> mp; mp[{x, y}] = s;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gOperatorOverloading</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

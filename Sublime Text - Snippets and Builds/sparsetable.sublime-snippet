@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+class sparse_table {
+    int N, K; vector<vector<int>> sptable;
+public:
+    void build (const vector<int> &arr) {
+        this->N = (int)(arr.size()); this->K = log2(N) + 2;
+        sptable.resize(N+1);
+        for(int i = 0; i < N; i++) {
+            sptable[i].resize(K+1);
+            sptable[i][0] = arr[i];
+        }
+
+        for(int j = 1; (1 << j) <= N; j++) {
+            for(int i = 0; i + (1 << j) - 1 < N; i++) {
+                sptable[i][j] = min(sptable[i][j-1], sptable[i+(1 << (j-1))][j-1]);
+            }
+        }
+    }
+
+    int query (int l, int r) { // 0 based index should be sent.
+        int mn = 2e18, sz = r - l + 1;
+        for(int k = K; k >= 0; k--) {
+            if(sz >= (1 << k)) {
+                mn = min(mn, sptable[l][k]);
+                l += 1 << k; sz -= 1 << k;
+            }
+        }
+        return mn;
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gSparseTable</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

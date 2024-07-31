@@ -1,0 +1,36 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+using namespace std;
+
+template<typename T3> void write(T3 zZ) { cout << zZ << endl; }
+template<typename T, typename... T2> void write(T zZ, T2... more) { cout << zZ << ' '; write(more...); }
+
+const int64_t mod = 1e9 + 7;
+#define int long long
+#define pb push_back
+#define pii pair<int, int>
+#define ff first
+#define ss second
+#define vi vector<int>
+#define sz(a) ((int)(a.size()))
+#define mp(a, b) make_pair(a, b)
+#define all(a) a.begin(), a.end()
+#define read(a) for(auto &i : a) cin >> i
+#define rep(i, a, n) for(int i = a; i < n; i++)
+#define print(a) for(auto x : a) cout << x << " "
+
+signed main()
+{
+    ios_base::sync_with_stdio(false); cin.tie(nullptr);
+
+    
+
+    return 0;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>cpsample</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
