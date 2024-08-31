@@ -1,0 +1,66 @@
+<snippet>
+	<content><![CDATA[
+class LCA {
+public:
+    vector<int> depth, arr, sgtree, pos;
+    int n;
+
+    void dfs(int v, int par, vector<int> G[]) {
+        arr.push_back(v);
+        for(int u : G[v]) {
+            if(u != par) {
+                depth[u] = depth[v] + 1;
+                dfs(u, v, G);
+                arr.push_back(v);
+            }
+        }
+    }
+
+    int query(int i, int j, int l, int r, int node) {
+        if(j < l or i > r) return 0;
+        if(l <= i and j <= r) return sgtree[node];
+
+        int mid = (i + j) >> 1;
+
+        int u = query(i, mid, l, r, 2*node+1);
+        int v = query(mid+1, j, l, r, 2*node+2);
+
+        return (depth[u] < depth[v] ? u : v);
+    }
+
+    int build2(int i, int j, int node) {
+        if(i == j) {
+            sgtree[node] = arr[i]; return arr[i];
+        }
+
+        int mid = (i + j) >> 1;
+        int u = build2(i, mid, 2 * node + 1);
+        int v = build2(mid + 1, j, 2 * node + 2);
+
+        return sgtree[node] = (depth[u] < depth[v] ? u : v);
+    }
+
+    void build(int N, vector<int> G[]) {
+        depth.resize(N+1, 0); arr.clear();
+        depth[0] = (int)(1e9);
+        pos.resize(N+1, (int)(1e9));
+
+        dfs(1, 0, G);
+        this->n = (int)(arr.size());
+        for(int i = 0; i < n; i++) pos[arr[i]] = min(pos[arr[i]], i);
+
+        sgtree.resize(n * 4);
+        int unused_var = build2(0, n-1, 0);
+    }
+
+    int query(int u, int v) {
+        if(pos[u] > pos[v]) swap(u, v);
+        return query(0, n-1, pos[u], pos[v], 0);
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gLCA</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

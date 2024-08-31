@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+int n, m; cin >> n >> m; vi a(n); read(a);
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>glinenm</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
