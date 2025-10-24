@@ -1,7 +1,8 @@
 <snippet>
 	<content><![CDATA[
-const int32_t mxn = 1e6 + 2;
+const int32_t mxn = 2e5 + 2;
 vector<bool> prime(mxn+1, true);
+vector<int> primes;
 
 void sieve(){
     for(int i = 4; i < mxn; i+=2) prime[i] = false;
@@ -11,6 +12,9 @@ void sieve(){
                 prime[j] = false;
         }
     } prime[0] = prime[1] = false;
+    for(int i = 2; i < mxn; i++) {
+        if(prime[i]) primes.pb(i);
+    }
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
