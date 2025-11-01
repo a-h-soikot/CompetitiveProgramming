@@ -35,6 +35,7 @@ void tarzan(int _p, int _v) {
         for(int i = (int)(curr_stack.size()) - 1; i >= 0; i--) {
             int _node = curr_stack.back();
             curr_stack.pop_back();
+            in_curr_stack[_node] = false;
             lowTime[_node] = lowTime[_v];
             if(_node == _v) break;
         }
