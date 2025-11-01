@@ -1,0 +1,66 @@
+<snippet>
+	<content><![CDATA[
+vector<int> discoveryTime(mxn, -1);
+vector<int> lowTime(mxn);
+vector<int> curr_stack;
+vector<bool> in_curr_stack(mxn);
+vector<pair<int, int>> bridges;
+int _timer = 0;
+
+void tarzan(int _p, int _v) {
+    _timer++;
+    discoveryTime[_v] = _timer;
+    lowTime[_v] = _timer;
+    in_curr_stack[_v] = true;
+    curr_stack.push_back(_v);
+
+    for(int _to : G[_v]) {
+        if(_to != _p) {
+            if(discoveryTime[_to] == -1) {
+                tarzan(_v, _to);
+                lowTime[_v] = min(lowTime[_v], lowTime[_to]);
+
+                if(lowTime[_to] > discoveryTime[_v]) {
+                    bridges.push_back(make_pair(_v, _to));
+                }
+            } else {
+                if(in_curr_stack[_to]) {
+                    lowTime[_v] = min(lowTime[_v],lowTime[_to]);
+                }
+            }
+        }
+    }
+
+    if(discoveryTime[_v] == lowTime[_v]) {
+        for(int i = (int)(curr_stack.size()) - 1; i >= 0; i--) {
+            int _node = curr_stack.back();
+            curr_stack.pop_back();
+            lowTime[_node] = lowTime[_v];
+            if(_node == _v) break;
+        }
+    }
+}
+
+void run_tarzan(int n) {
+    bridges.clear();
+    _timer = 0;
+    for(int i = 1; i <= n; i++) {
+        discoveryTime[i] = -1;
+        in_curr_stack[i] = false;
+    }
+    for(int i = 1; i <= n; i++) {
+        while(!curr_stack.empty()) {
+            in_curr_stack[curr_stack.back()] = false;
+            curr_stack.pop_back();
+        }
+        if(discoveryTime[i] == -1) {
+            tarzan(0, i);
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gTarzan</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
