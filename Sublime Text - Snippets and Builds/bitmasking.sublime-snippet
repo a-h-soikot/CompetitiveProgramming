@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[
+// For 32 bits integers and _k < 31
+bool is_set_bit(int _x, int _k) { return (_x >> _k) & 1; }
+void set_one(int &_x, int _k) { _x |= (1 << _k); }
+void set_zero(int &_x, int _k) { _x &= (~(1 << _k)); }
+int get_lsb(int _x) { return _x ? __builtin_ctz(_x) : -1; }
+int get_msb(int _x) { return _x ? 31 - __builtin_clz(_x) : -1; }
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>gbitmasking</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
